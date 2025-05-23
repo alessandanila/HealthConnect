@@ -1,0 +1,928 @@
+/* src/styles/ContenidoEducativo.module.css */
+
+/* General Styles */
+.container {
+    font-family: -apple-system, BlinkMacMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    padding: 30px;
+    background-color: #f8f9fa;
+    max-width: 1000px;
+    margin: 20px auto;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    color: #333;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.backButton {
+    background: none;
+    border: none;
+    color: #6a3282; /* Color morado suave */
+    font-size: 1em;
+    cursor: pointer;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.backButton:hover {
+    color: #4a215e;
+}
+
+.mainTitle {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.introText {
+    font-size: 1.1em;
+    color: #666;
+    text-align: center;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+/* Tabs / Categories */
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 40px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.tabButton {
+    background-color: transparent;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.05em;
+    font-weight: 500;
+    color: #777;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+.tabButton:hover {
+    color: #555;
+}
+
+.activeTab {
+    color: #8e44ad; /* Purple color for active tab */
+    border-bottom-color: #8e44ad;
+    font-weight: 600;
+}
+
+/* Sections General */
+.section {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e9ecef;
+}
+
+.sectionTitle {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #34495e;
+    margin-bottom: 25px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.sectionTitle::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: #8e44ad;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* Featured Article */
+.featuredArticle {
+    display: flex;
+    flex-direction: column; /* Default to column for better responsiveness */
+    gap: 25px;
+    align-items: flex-start;
+}
+
+@media (min-width: 768px) { /* Change to row on larger screens */
+    .featuredArticle {
+        flex-direction: row;
+    }
+    .featuredArticleImage {
+        width: 45%; /* Adjust image width when in row */
+        min-width: 300px;
+        max-height: none;
+    }
+}
+
+.featuredArticleImage {
+    width: 100%;
+    max-height: 350px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.featuredArticleContent {
+    flex: 1;
+}
+
+.featuredArticleTitle {
+    font-size: 1.6em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.featuredArticleDescription {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.readArticleButton {
+    background-color: #6a3282; /* Darker purple */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.readArticleButton:hover {
+    background-color: #4a215e;
+    transform: translateY(-2px);
+}
+
+/* Popular Topics (Grid) */
+.popularTopicsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.topicCard {
+    background-color: #f7f3fd; /* Very light purple background */
+    border-radius: 12px;
+    /* REMOVED PADDING HERE TO ALLOW IMAGE TO GO EDGE-TO-EDGE */
+    padding: 0; /* Important change */
+    display: flex;
+    flex-direction: column;
+    /* ALIGN-ITEMS IS NOW FLEX-START FOR TEXT, IMAGE IS 100% WIDTH */
+    align-items: flex-start;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #efe8f8;
+    overflow: hidden; /* Important for border-radius on image */
+    transition: transform 0.3s ease-in-out; /* Added transition for hover effect */
+}
+
+.topicCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* New style for images inside topic cards */
+.topicCardImage {
+    width: 100%; /* Image takes full width of the card */
+    height: 150px; /* Fixed height for uniformity (adjust as needed) */
+    object-fit: cover; /* Crops the image to cover the area without distortion */
+    border-radius: 12px 12px 0 0; /* Rounded top corners matching the card */
+    margin-bottom: 0; /* No margin here as content has its own padding */
+    display: block; /* Ensures no extra space below the image */
+}
+
+/* Adjusted padding for content inside topicCard */
+.topicCard .topicIcon,
+.topicCard .topicTitle,
+.topicCard .topicDescription,
+.topicCard .moreInfoButton {
+    padding-left: 25px; /* Matches the old padding of the card */
+    padding-right: 25px; /* Matches the old padding of the card */
+}
+
+.topicCard .topicIcon {
+    font-size: 2em;
+    margin-top: 15px; /* Add some space above the icon */
+    margin-bottom: 15px;
+    color: #8e44ad;
+    background-color: #e6e0f8;
+    padding: 10px;
+    border-radius: 8px;
+    align-self: center; /* Center the icon in the card */
+}
+
+.topicCard .topicTitle {
+    font-size: 1.25em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center; /* Center the title */
+    width: 100%; /* Ensure title takes full width for centering */
+}
+
+.topicCard .topicDescription {
+    font-size: 0.95em;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex-grow: 1;
+    text-align: center; /* Center the description */
+    width: 100%;
+}
+
+.moreInfoButton {
+    background-color: #8e44ad;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    align-self: center; /* Center the button */
+    margin-bottom: 25px; /* Add space below the button */
+}
+
+.moreInfoButton:hover {
+    background-color: #6a3282;
+    transform: translateY(-2px);
+}
+
+/* Latest Articles (List) */
+.latestArticlesList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.latestArticleItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    background-color: #fcfcfc;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.latestArticleItem:hover {
+    background-color: #f4f4f4;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.latestArticleLeft {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.latestArticleIcon {
+    font-size: 1.8em;
+    color: #8e44ad;
+    background-color: #f4ecf7;
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.latestArticleTitle {
+    font-size: 1.15em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.latestArticleDescription {
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.4;
+}
+
+.latestArticleArrow {
+    font-size: 1.5em;
+    color: #888;
+}
+
+/* Expert Insights */
+.expertSectionContent {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.expertImageContainer {
+    flex-shrink: 0;
+    width: 40%;
+    max-width: 350px;
+    height: auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.expertImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.expertDetails {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.expertRole {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #8e44ad;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    letter-spacing: 0.05em;
+}
+
+.expertName {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.expertDescription {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.viewProfileButton {
+    background-color: #8e44ad;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: fit-content;
+}
+
+.viewProfileButton:hover {
+    background-color: #6a3282;
+    transform: translateY(-2px);
+}
+
+/* Mental Health Resources (Grid) */
+.resourcesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.resourceCard {
+    background-color: #f7f3fd;
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #efe8f8;
+}
+
+.resourceIcon {
+    font-size: 2em;
+    margin-bottom: 15px;
+    color: #8e44ad;
+    background-color: #e6e0f8;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.resourceTitle {
+    font-size: 1.25em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.resourceDescription {
+    font-size: 0.95em;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.resourceButtons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.resourceButton {
+    background-color: #8e44ad;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.resourceButton:nth-child(2) {
+    background-color: transparent;
+    border: 1px solid #8e44ad;
+    color: #8e44ad;
+}
+
+.resourceButton:hover {
+    background-color: #6a3282;
+    transform: translateY(-2px);
+}
+
+.resourceButton:nth-child(2):hover {
+    background-color: #e6e0f8;
+    color: #6a3282;
+    transform: translateY(-2px);
+}
+
+/* Newsletter Subscription */
+.newsletterSection {
+    text-align: center;
+    padding: 40px 30px;
+    background-color: #e6e0f8;
+    border: 1px solid #d3c4ea;
+}
+
+.newsletterInputContainer {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto 20px auto;
+}
+
+.newsletterInput {
+    width: calc(100% - 40px);
+    padding: 12px 40px 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    color: #333;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.newsletterInput:focus {
+    border-color: #8e44ad;
+    box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.2);
+    outline: none;
+}
+
+.newsletterIcon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 1.2em;
+}
+
+.subscribeButton {
+    background-color: #8e44ad;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.subscribeButton:hover {
+    background-color: #6a3282;
+    transform: translateY(-2px);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 15px;
+        margin: 10px auto;
+    }
+
+    .mainTitle {
+        font-size: 2em;
+    }
+
+    .introText {
+        font-size: 1em;
+    }
+
+    .tabs {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 5px;
+        margin-bottom: 30px;
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .tabButton {
+        padding: 10px 15px;
+        text-align: center;
+        border-bottom: none;
+        border-radius: 5px;
+    }
+
+    .tabButton.activeTab {
+        border-bottom-color: transparent;
+        background-color: #8e44ad;
+        color: white;
+    }
+    .tabButton:hover {
+        background-color: #f0f0f0;
+    }
+    .tabButton.activeTab:hover {
+        background-color: #6a3282;
+    }
+
+    .section {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    .sectionTitle {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+
+    .featuredArticle {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .featuredArticleImage {
+        max-height: 250px;
+        width: 100%;
+    }
+
+    .featuredArticleTitle {
+        font-size: 1.4em;
+    }
+
+    .featuredArticleDescription {
+        font-size: 0.9em;
+    }
+
+    .popularTopicsGrid,
+    .resourcesGrid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Adjust padding for topic cards on small screens */
+    .topicCard {
+        padding: 0; /* Still no padding on the card itself */
+    }
+    .topicCard .topicIcon,
+    .topicCard .topicTitle,
+    .topicCard .topicDescription,
+    .topicCard .moreInfoButton {
+        padding-left: 20px; /* Adjust padding for content inside card */
+        padding-right: 20px; /* Adjust padding for content inside card */
+    }
+
+
+    .resourceCard {
+        padding: 20px;
+    }
+
+    .expertSectionContent {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .expertImageContainer {
+        width: 100%;
+        max-width: none;
+    }
+
+    .expertName {
+        font-size: 1.5em;
+    }
+
+    .expertDescription {
+        font-size: 0.95em;
+    }
+
+    .viewProfileButton {
+        width: 100%;
+        text-align: center;
+    }
+
+    .latestArticleItem {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 15px;
+    }
+
+    .latestArticleLeft {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .latestArticleIcon {
+        margin-bottom: 5px;
+    }
+
+    .latestArticleArrow {
+        align-self: flex-end;
+        margin-top: 10px;
+    }
+
+    .newsletterSection {
+        padding: 30px 20px;
+    }
+
+    .newsletterInputContainer {
+        max-width: 100%;
+    }
+
+    .newsletterInput {
+        width: calc(100% - 40px);
+    }
+
+    .subscribeButton {
+        width: 100%;
+    }
+}
+
+/* Media Query for very small screens (e.g., 320px) */
+@media (max-width: 480px) {
+    .mainTitle {
+        font-size: 1.8em;
+    }
+    .sectionTitle {
+        font-size: 1.3em;
+    }
+    .topicTitle, .resourceTitle {
+        font-size: 1.1em;
+    }
+    .readArticleButton, .moreInfoButton, .resourceButton, .subscribeButton, .viewProfileButton {
+        padding: 10px 15px;
+        font-size: 0.85em;
+    }
+}
+
+/* Styles for Article/Topic Detail (now part of the same component) */
+.detailContainer {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    padding: 30px;
+    background-color: #ffffff;
+    max-width: 800px;
+    margin: 20px auto;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    color: #333;
+    line-height: 1.6;
+}
+
+.detailImage {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.detailTitle {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.detailContent {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.7;
+}
+
+.detailContent h3 {
+    font-size: 1.5em;
+    color: #34495e;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.detailContent h4 {
+    font-size: 1.2em;
+    color: #34495e;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.detailContent ul,
+.detailContent ol {
+    margin-left: 25px;
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+.detailContent li {
+    margin-bottom: 8px;
+}
+
+.detailContent p {
+    margin-bottom: 15px;
+}
+
+/* Style for buttons that can be inserted directly into HTML content */
+.inlineButton {
+    background-color: #8e44ad;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-right: 10px; /* Space between inline buttons */
+    margin-top: 10px;
+}
+
+.inlineButton:hover {
+    background-color: #6a3282;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .detailContainer {
+        padding: 20px 15px;
+        margin: 10px auto;
+    }
+
+    .detailImage {
+        height: 200px;
+    }
+
+    .detailTitle {
+        font-size: 1.8em;
+    }
+
+    .detailContent h3 {
+        font-size: 1.3em;
+    }
+
+    .detailContent h4 {
+        font-size: 1.1em;
+    }
+}
+
+/* Styles for Doctor's Profile (now part of the same component) */
+.profileContainer {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    padding: 30px;
+    background-color: #ffffff;
+    max-width: 800px;
+    margin: 20px auto;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    color: #333;
+    line-height: 1.6;
+}
+
+.profileHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.profileImage {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 4px solid #8e44ad;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.profileInfo {
+    text-align: center;
+}
+
+.profileRole {
+    font-size: 1em;
+    font-weight: 600;
+    color: #8e44ad;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    letter-spacing: 0.08em;
+}
+
+.profileName {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.profileContent {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.7;
+}
+
+.profileContent h3 {
+    font-size: 1.8em;
+    color: #34495e;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.profileContent h4 {
+    font-size: 1.3em;
+    color: #34495e;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.profileContent ul,
+.profileContent ol {
+    margin-left: 25px;
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+.profileContent li {
+    margin-bottom: 8px;
+}
+
+.profileContent p {
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .profileContainer {
+        padding: 20px 15px;
+        margin: 10px auto;
+    }
+
+    .profileImage {
+        width: 120px;
+        height: 120px;
+    }
+
+    .profileName {
+        font-size: 2em;
+    }
+
+    .profileContent h3 {
+        font-size: 1.5em;
+    }
+    .profileContent h4 {
+        font-size: 1.2em;
+    }
+}

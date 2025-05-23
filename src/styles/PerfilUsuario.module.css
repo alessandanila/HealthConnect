@@ -1,116 +1,177 @@
 /* PerfilUsuario.module.css */
+
 .container {
-  font-family: sans-serif;
-  padding: 20px;
-  background-color: #f9f9f9;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  padding: 30px 20px;
+  background-color: #f0f2f5;
+  max-width: 800px;
+  margin: 20px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  color: #333;
 }
 
 .title {
-  color: #333;
-  margin-bottom: 15px;
+  font-size: 2em;
+  font-weight: 700;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.title:after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #8e44ad;
+  margin: 10px auto 0;
+  border-radius: 2px;
 }
 
 .section {
-  background-color: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  margin-bottom: 15px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 25px 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e0e0e0;
 }
 
 .header {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
-}
-
-.icon {
-  font-size: 1.5em;
-  margin-right: 10px;
-  color: #673ab7; /* Morado similar al diseño */
-}
-
-.header h3 {
-  color: #555;
-  margin: 0;
-}
-
-.subtitle {
-  color: #777;
-  font-size: 0.9em;
+  gap: 15px;
   margin-bottom: 15px;
 }
 
+.icon {
+  font-size: 1.8em;
+  color: #8e44ad;
+  background-color: #f4ecf7;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header h3 {
+  font-size: 1.4em;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.subtitle {
+  font-size: 0.95em;
+  color: #666;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
 .profileImageContainer {
+  text-align: center;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  gap: 15px;
 }
 
 .profileImage {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 10px;
-  border: 2px solid #eee;
+  border: 4px solid #8e44ad;
+  box-shadow: 0 0 0 5px rgba(142, 68, 173, 0.2);
 }
 
 .changePhotoButton {
-  background-color: transparent;
-  color: #673ab7;
+  background-color: #3498db;
+  color: white;
   border: none;
-  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 25px;
   font-size: 0.9em;
-  transition: color 0.2s ease;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 600;
 }
 
 .changePhotoButton:hover {
-  color: #512da8;
+  background-color: #2980b9;
+  transform: translateY(-2px);
 }
 
 .infoItem {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
+  flex-direction: column;
+  margin-bottom: 20px;
   border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
 }
 
 .infoItem:last-child {
   border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .label {
-  color: #555;
-  font-weight: bold;
-  flex-grow: 1;
+  font-size: 0.9em;
+  color: #777;
+  margin-bottom: 5px;
+  font-weight: 500;
 }
 
 .value {
+  font-size: 1.1em;
   color: #333;
-  flex-shrink: 0;
+  font-weight: 400;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 .value .icon {
-  font-size: 1em;
-  color: #777;
+  font-size: 1em; /* Ajustar tamaño del icono dentro del valor */
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: #888;
 }
 
-/* Styles for Notification Preferences */
+/* Estilos para los campos de entrada cuando está en modo edición */
+.inputField {
+  width: calc(100% - 20px); /* Ajustar para padding */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  color: #333;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.inputField:focus {
+  border-color: #8e44ad;
+  box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.2);
+  outline: none;
+}
+
+textarea.inputField {
+  min-height: 70px;
+  resize: vertical;
+}
+
+
+/* Notificaciones (switches) */
 .notificationItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 15px 0;
   border-bottom: 1px solid #eee;
 }
 
@@ -122,28 +183,31 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #555;
-  font-weight: bold;
+  font-size: 1em;
+  color: #333;
+  font-weight: 500;
+  flex: 1; /* Permitir que el texto ocupe espacio */
 }
 
 .notificationIcon {
-  font-size: 1em;
-  color: #673ab7;
+  font-size: 1.3em;
+  color: #8e44ad;
 }
 
 .notificationDescription {
+  font-size: 0.85em;
   color: #777;
-  font-size: 0.9em;
-  flex-grow: 1;
-  margin-left: 15px;
+  flex: 2; /* Permitir que la descripción ocupe más espacio */
+  margin-left: 15px; /* Espacio entre label y descripción */
 }
 
-/* Switch styles */
+/* Switch (Toggle) */
 .switch {
   position: relative;
   display: inline-block;
-  width: 40px;
-  height: 20px;
+  width: 45px;
+  height: 25px;
+  margin-left: 20px;
 }
 
 .switch input {
@@ -160,84 +224,332 @@
   right: 0;
   bottom: 0;
   background-color: #ccc;
+  -webkit-transition: .4s;
   transition: .4s;
-  border-radius: 20px;
+  border-radius: 25px;
 }
 
 .slider:before {
   position: absolute;
   content: "";
-  height: 16px;
-  width: 16px;
-  left: 2px;
-  bottom: 2px;
+  height: 19px;
+  width: 19px;
+  left: 3px;
+  bottom: 3px;
   background-color: white;
+  -webkit-transition: .4s;
   transition: .4s;
   border-radius: 50%;
 }
 
 input:checked + .slider {
-  background-color: #673ab7;
+  background-color: #8e44ad;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #673ab7;
+  box-shadow: 0 0 1px #8e44ad;
 }
 
 input:checked + .slider:before {
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
   transform: translateX(20px);
 }
 
-/* Styles for Privacy Settings */
+input:disabled + .slider {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
 .privacyButton {
-  background-color: #e0e0ff; /* Light purple */
-  color: #673ab7;
-  padding: 10px 15px;
+  background-color: #28a745; /* Green color */
+  color: white;
   border: none;
-  border-radius: 5px;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 0.9em;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: block; /* Ocupa todo el ancho si es un botón de acción principal */
+  width: fit-content; /* Ajustar al contenido */
+  margin-top: 20px; /* Espacio con el subtítulo */
 }
 
 .privacyButton:hover {
-  background-color: #d1c4e9; /* Lighter purple */
-  color: #512da8;
+  background-color: #218838;
+  transform: translateY(-2px);
 }
 
-/* Styles for Actions Buttons */
+.privacyButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Botones de acción general (Guardar/Cancelar) */
 .actions {
   display: flex;
-  gap: 10px;
-  justify-content: flex-end;
+  justify-content: flex-end; /* Alinear a la derecha */
+  gap: 15px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
 }
 
 .saveButton,
-.cancelButton {
-  padding: 10px 15px;
-  border-radius: 5px;
+.cancelButton,
+.editButton { /* Estilo para el botón de editar */
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 0.9em;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .saveButton {
-  background-color: #673ab7;
+  background-color: #8e44ad; /* Morado */
   color: white;
   border: none;
 }
 
 .saveButton:hover {
-  background-color: #512da8;
+  background-color: #6a3282;
+  transform: translateY(-2px);
 }
 
 .cancelButton {
-  background-color: #f0f0f0;
-  color: #555;
-  border: 1px solid #ccc;
+  background-color: #e74c3c; /* Rojo */
+  color: white;
+  border: none;
 }
 
 .cancelButton:hover {
-  background-color: #e0e0e0;
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
+
+.editButton {
+  background-color: #3498db; /* Azul */
+  color: white;
+  border: none;
+  margin-top: 10px; /* Espacio del título */
+  display: block; /* Para que ocupe su propia línea si es necesario */
+  width: fit-content;
+  margin-left: auto; /* Alinear a la derecha */
+}
+
+.editButton:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+.topActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.editModeButtons {
+  display: flex;
+  gap: 15px;
+}
+
+/* --- Estilos del Modal de Privacidad (Integrados aquí) --- */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modalContent {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  max-width: 550px;
+  width: 90%;
+  position: relative;
+  animation: fadeInScale 0.3s ease-out;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.closeButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 2em;
+  cursor: pointer;
+  color: #888;
+  line-height: 1;
+  padding: 5px;
+  transition: color 0.2s;
+}
+
+.closeButton:hover {
   color: #333;
+}
+
+.modalTitle {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+  padding-right: 30px; /* Para no chocar con el botón de cerrar */
+}
+
+.modalBody {
+  font-size: 1em;
+  line-height: 1.6;
+  color: #555;
+}
+
+.modalBody p,
+.modalBody ul {
+  margin-bottom: 15px;
+}
+
+.modalBody ul {
+  list-style: none; /* Quitamos los puntos por defecto */
+  padding-left: 0;
+}
+
+.modalBody li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-right: 10px; /* Espacio para el switch */
+}
+
+.modalBody h4 {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #34495e;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.modalButton {
+  background-color: #8e44ad;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  width: auto;
+  display: block;
+  margin: 25px auto 0 auto;
+}
+
+.modalButton:hover {
+  background-color: #6a3282;
+  transform: translateY(-1px);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInScale {
+  from {
+      opacity: 0;
+      transform: scale(0.95);
+  }
+  to {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+  .container {
+      padding: 20px 15px;
+  }
+
+  .title {
+      font-size: 1.7em;
+  }
+
+  .section {
+      padding: 20px;
+  }
+
+  .header h3 {
+      font-size: 1.2em;
+  }
+
+  .subtitle {
+      font-size: 0.9em;
+  }
+
+  .infoItem {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .value {
+      width: 100%;
+      margin-top: 5px;
+  }
+
+  .inputField {
+      width: calc(100% - 20px);
+  }
+
+  .notificationItem {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+  }
+
+  .notificationDescription {
+      margin-left: 0;
+  }
+
+  .switch {
+      margin-left: 0;
+      margin-top: 10px;
+  }
+
+  .actions,
+  .topActions,
+  .editModeButtons {
+      flex-direction: column;
+      align-items: center; /* Centrar botones en móvil */
+      gap: 10px;
+  }
+
+  .saveButton,
+  .cancelButton,
+  .editButton,
+  .privacyButton {
+      width: 100%; /* Botones de ancho completo en móvil */
+      margin-left: 0;
+      margin-right: 0;
+  }
+
+  .modalContent {
+      padding: 20px;
+      width: 95%;
+  }
 }

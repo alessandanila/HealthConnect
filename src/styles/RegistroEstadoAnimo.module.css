@@ -1,3 +1,5 @@
+/* RegistroEstadoAnimo.module.css */
+
 .container {
   font-family: sans-serif;
   padding: 20px;
@@ -6,6 +8,7 @@
   gap: 20px;
   background-color: #f9f9f9;
   min-height: 100vh;
+  position: relative; /* Importante para posicionamiento absoluto de los botones superiores */
 }
 
 .header {
@@ -13,9 +16,42 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
+  position: relative; /* Asegura que los botones se posicionen dentro de este header si quieres que estén relativos a él */
+  padding-top: 50px; /* Añade un padding para que el contenido principal no quede debajo de los botones */
 }
 
-.perfilButton {
+.topButtons {
+  position: absolute; /* Posicionamiento absoluto para que estén en la esquina superior */
+  top: 10px;
+  right: 10px; /* Alinear a la derecha por defecto */
+  display: flex;
+  gap: 15px; /* Espacio entre los botones */
+  z-index: 10; /* Asegura que estén por encima de otros elementos */
+}
+
+.perfilButton,
+.educacionButton {
+  background-color: #5C677D; /* Un gris azulado */
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.perfilButton:hover,
+.educacionButton:hover {
+  background-color: #4A536B;
+  transform: translateY(-2px);
+}
+
+/* Modificamos el .perfilButton original para que no tenga position: absolute por sí mismo */
+/* Ahora su posición es manejada por el .topButtons */
+/* .perfilButton {
   position: absolute;
   top: 10px;
   left: 10px;
@@ -24,16 +60,19 @@
   cursor: pointer;
   font-size: 1em;
   color: #555;
-}
+} */
+
 
 .header h1 {
   color: #333;
   margin-bottom: 5px;
+  text-align: center; /* Asegura que el título esté centrado */
 }
 
 .header p {
   color: #777;
   font-size: 0.9em;
+  text-align: center; /* Asegura que el subtítulo esté centrado */
 }
 
 .seleccionEstado h2 {
@@ -247,4 +286,61 @@ input:checked + .slider:before {
 .verRecomendaciones:hover {
   background-color: #ddd;
   color: #333;
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+  .container {
+      padding: 15px;
+  }
+
+  .header {
+      padding-top: 60px; /* Más espacio superior para los botones en móvil */
+  }
+
+  .topButtons {
+      flex-direction: column;
+      align-items: flex-end; /* Alinear a la derecha en columna */
+      top: 10px;
+      right: 10px; /* Mantener en la esquina superior derecha */
+      gap: 10px; /* Menos espacio entre los botones */
+  }
+
+  .perfilButton,
+  .educacionButton {
+      width: auto; /* Ancho ajustado al contenido */
+      padding: 8px 15px; /* Padding más pequeño */
+      font-size: 0.85em; /* Fuente más pequeña */
+      border-radius: 15px;
+  }
+
+  .estados {
+      grid-template-columns: 1fr; /* Una columna en móvil */
+  }
+
+  .factor {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+  }
+
+  .factor .icono {
+      margin-right: 0;
+      margin-bottom: 5px;
+  }
+
+  .switch {
+      align-self: flex-end; /* Alinea el switch a la derecha dentro del factor */
+  }
+
+  .navegacionInferior {
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  .verHistorial,
+  .verRecomendaciones,
+  .guardar {
+      width: 100%; /* Botones de ancho completo en móvil */
+  }
 }

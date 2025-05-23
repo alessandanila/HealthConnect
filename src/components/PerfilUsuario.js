@@ -1,1462 +1,435 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styles from '../styles/PerfilUsuario.module.css';
+import React, { useState } from 'react';
+import styles from '../styles/PerfilUsuario.module.css'; // Import CSS Module
+import PerfilImagen from '../assets/Perfil.png'; // ¡IMPORTA TU IMAGEN AQUÍ! Asegúrate de que la ruta sea correcta.
 
 function PerfilUsuario() {
-    const navigate = useNavigate();
-    const [error, setError] = useState('');
-    const [loading, setLoading] = useState(true);
-    const [userData, setUserData] = useState(null);
-    const [isEditing, setIsEditing] = useState(false);
-    const [editedData, setEditedData] = useState({
-        nombreCompleto: '',
-        email: '',
-        numeroTelefono: '',
-        fechaNacimiento: '',
-        altura: '',
-        peso: '',
-        condicionesMedicas: '',
-        medicamentosActuales: ''
+    // --- Estados para la información personal (editables) ---
+    const [nombreCompleto, setNombreCompleto] = useState('Maria Rodriguez');
+    const [correoElectronico, setCorreoElectronico] = useState('maria.rodriguez@example.com');
+    const [numeroTelefono, setNumeroTelefono] = useState('+1 (555) 123-4567');
+    const [fechaNacimiento, setFechaNacimiento] = useState('1985-12-05'); // Formato YYYY-MM-DD para input date
+    const [fotoPerfilUrl, setFotoPerfilUrl] = useState(PerfilImagen); // ¡USA LA IMAGEN IMPORTADA AQUÍ!
+
+    // ... el resto de tu código sigue igual ...
+
+    // --- Estados para la información de salud (editables) ---
+    const [altura, setAltura] = useState("5'6\"");
+    const [peso, setPeso] = useState('145 lbs');
+    const [condicionesMedicas, setCondicionesMedicas] = useState('Anxiety, Mild depression');
+    const [medicamentosActuales, setMedicamentosActuales] = useState('Sertraline 50mg daily');
+
+    // --- Estados para la configuración de notificaciones (alternadores) ---
+    const [notificacionesEmail, setNotificacionesEmail] = useState(true);
+    const [notificacionesSms, setNotificacionesSms] = useState(false); // Ejemplo, puede ser true/false
+    const [notificacionesApp, setNotificacionesApp] = useState(true);
+
+    // --- Estado para controlar el modo de edición ---
+    const [modoEdicion, setModoEdicion] = useState(false);
+
+    // --- Estado para el modal de administración de privacidad (simulado) ---
+    const [modalPrivacidadAbierto, setModalPrivacidadAbierto] = useState(false);
+
+    // --- Almacenar el estado original para la función de cancelar ---
+    const [datosOriginales, setDatosOriginales] = useState({
+        nombreCompleto,
+        correoElectronico,
+        numeroTelefono,
+        fechaNacimiento,
+        altura,
+        peso,
+        condicionesMedicas,
+        medicamentosActuales,
+        notificacionesEmail,
+        notificacionesSms,
+        notificacionesApp,
+        fotoPerfilUrl, // Incluimos la URL de la foto en el estado original
     });
 
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                // Asumiendo que tienes alguna forma de obtener el ID del usuario (ej: localStorage, params de la URL)
-                const userId = localStorage.getItem('userId'); // Reemplaza con tu lógica
-
-                if (userId) {
-                    const response = await fetch(`/api/users/${userId}`); // Ajusta la ruta de tu API
-                    if (!response.ok) {
-                        throw new Error(`Error al cargar datos del usuario: ${response.status}`);
-                    }
-                    const data = await response.json();
-                    setUserData(data);
-                    setEditedData(data);
-                } else {
-                    setError('ID de usuario no encontrado.');
-                    setLoading(false);
-                }
-            } catch (error) {
-                setError('Error al cargar los datos del usuario.');
-                console.error("Error fetching user data:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchUserData();
-    }, []); // Ya no hay dependencia de currentUser
-
-    const handleLogout = () => {
-        // Aquí deberías implementar la lógica para cerrar sesión
-        // dependiendo de cómo esté gestionada tu autenticación.
-        localStorage.removeItem('userId'); // Ejemplo: eliminar ID del almacenamiento local
-        navigate('/login');
+    // Función para manejar la edición
+    const handleEditar = () => {
+        // Guardar el estado actual como "original" al entrar en modo edición
+        setDatosOriginales({
+            nombreCompleto,
+            correoElectronico,
+            numeroTelefono,
+            fechaNacimiento,
+            altura,
+            peso,
+            condicionesMedicas,
+            medicamentosActuales,
+            notificacionesEmail,
+            notificacionesSms,
+            notificacionesApp,
+            fotoPerfilUrl,
+        });
+        setModoEdicion(true);
     };
 
-    const handleEditClick = () => {
-        setIsEditing(true);
+    // Función para guardar los cambios
+    const handleGuardarCambios = () => {
+        // Aquí se simularía el envío de los datos actualizados a un backend
+        console.log('Guardando cambios:', {
+            nombreCompleto,
+            correoElectronico,
+            numeroTelefono,
+            fechaNacimiento,
+            altura,
+            peso,
+            condicionesMedicas,
+            medicamentosActuales,
+            notificacionesEmail,
+            notificacionesSms,
+            notificacionesApp,
+            fotoPerfilUrl,
+        });
+        alert('¡Cambios guardados con éxito!');
+        setModoEdicion(false); // Salir del modo edición
     };
 
-    const handleCancelEdit = () => {
-        setIsEditing(false);
-        setEditedData(userData);
+    // Función para cancelar la edición
+    const handleCancelar = () => {
+        // Restaurar los datos a su estado original
+        setNombreCompleto(datosOriginales.nombreCompleto);
+        setCorreoElectronico(datosOriginales.correoElectronico);
+        setNumeroTelefono(datosOriginales.numeroTelefono);
+        setFechaNacimiento(datosOriginales.fechaNacimiento);
+        setAltura(datosOriginales.altura);
+        setPeso(datosOriginales.peso);
+        setCondicionesMedicas(datosOriginales.condicionesMedicas);
+        setMedicamentosActuales(datosOriginales.medicamentosActuales);
+        setNotificacionesEmail(datosOriginales.notificacionesEmail);
+        setNotificacionesSms(datosOriginales.notificacionesSms);
+        setNotificacionesApp(datosOriginales.notificacionesApp);
+        setFotoPerfilUrl(datosOriginales.fotoPerfilUrl);
+
+        alert('Edición cancelada. Los cambios no se guardaron.');
+        setModoEdicion(false); // Salir del modo edición
     };
 
-    const handleSaveClick = async () => {
-        try {
-            // Asumiendo que tienes alguna forma de obtener el ID del usuario
-            const userId = localStorage.getItem('userId'); // Reemplaza con tu lógica
-
-            if (userId) {
-                const response = await fetch(`/api/users/${userId}`, { // Ajusta la ruta de tu API
-                    method: 'PUT', // O POST, dependiendo de tu API para actualizar
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(editedData),
-                });
-                if (!response.ok) {
-                    throw new Error(`Error al guardar cambios: ${response.status}`);
-                }
-                const updatedData = await response.json();
-                setUserData(updatedData);
-                setIsEditing(false);
-            } else {
-                setError('ID de usuario no encontrado.');
-            }
-        } catch (err) {
-            setError('Error al guardar los cambios.');
-            console.error("Error updating user data:", err);
+    // Función para cambiar la foto (simulada)
+    const handleChangePhoto = () => {
+        // Aquí podrías implementar una lógica más avanzada para subir una imagen,
+        // pero por ahora, mantendremos el prompt o podríamos predefinir una imagen de ejemplo.
+        const newPhotoUrl = prompt('Ingresa la URL de la nueva foto de perfil (o deja vacío para usar la predeterminada):');
+        if (newPhotoUrl) {
+            setFotoPerfilUrl(newPhotoUrl);
+            alert('Foto de perfil actualizada (simulado).');
+        } else {
+            // Si el usuario cancela o deja vacío, puedes volver a la imagen predeterminada si lo deseas.
+            setFotoPerfilUrl(PerfilImagen);
+            alert('Foto de perfil restaurada a la predeterminada.');
         }
     };
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setEditedData(prevData => ({
-            ...prevData,
-            [name]: value
-        }));
+
+    // Función para administrar la privacidad (simulado con un modal simple)
+    const handleAdministrarPrivacidad = () => {
+        setModalPrivacidadAbierto(true);
     };
 
-    const formatDateForInput = (dateString) => {
-        if (!dateString) return '';
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
+    const cerrarModalPrivacidad = () => {
+        setModalPrivacidadAbierto(false);
     };
 
     return (
-        <div className={styles.perfilContainer}>
-            {loading && <div>Cargando datos del usuario...</div>}
-            {error && <div className={styles.error}>{error}</div>}
+        <div className={styles.container}>
+            <h2 className={styles.title}>Información personal</h2>
 
-            {!loading && !error && userData && (
-                <>
-                    <section className={styles.informacionPersonal}>
-                        <h2 className={styles.seccionTitulo}>Información personal</h2>
-                        {isEditing ? (
-                            <div className={styles.editForm}>
-                                <label>Nombre completo:</label>
-                                <input
-                                    type="text"
-                                    name="nombreCompleto"
-                                    value={editedData.nombreCompleto || ''}
-                                    onChange={handleInputChange}
-                                />
+            {/* Botón de Editar/Guardar/Cancelar */}
+            <div className={styles.topActions}>
+                {!modoEdicion ? (
+                    <button className={styles.editButton} onClick={handleEditar}>
+                        Editar Perfil
+                    </button>
+                ) : (
+                    <div className={styles.editModeButtons}>
+                        <button className={styles.saveButton} onClick={handleGuardarCambios}>
+                            Guardar cambios
+                        </button>
+                        <button className={styles.cancelButton} onClick={handleCancelar}>
+                            Cancelar
+                        </button>
+                    </div>
+                )}
+            </div>
 
-                                <label>Correo electrónico:</label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    value={editedData.email || ''}
-                                    onChange={handleInputChange}
-                                    readOnly
-                                />
+            <div className={styles.section}>
+                <div className={styles.header}>
+                    <div className={styles.icon}>👤</div>
+                    <h3>Detalles del perfil</h3>
+                </div>
+                <p className={styles.subtitle}>Actualiza tu información personal y foto de perfil</p>
 
-                                <label>Número de teléfono:</label>
-                                <input
-                                    type="text"
-                                    name="numeroTelefono"
-                                    value={editedData.numeroTelefono || ''}
-                                    onChange={handleInputChange}
-                                />
+                <div className={styles.profileImageContainer}>
+                    <img
+                        src={fotoPerfilUrl}
+                        alt="Foto de perfil"
+                        className={styles.profileImage}
+                    />
+                    {modoEdicion && ( // Solo muestra el botón "Cambiar foto" en modo edición
+                        <button className={styles.changePhotoButton} onClick={handleChangePhoto}>
+                            Cambiar foto
+                        </button>
+                    )}
+                </div>
 
-                                <label>Fecha de nacimiento:</label>
-                                <input
-                                    type="date"
-                                    name="fechaNacimiento"
-                                    value={formatDateForInput(editedData.fechaNacimiento)}
-                                    onChange={handleInputChange}
-                                />
+                <div className={styles.infoItem}>
+                    <label className={styles.label}>Nombre completo</label>
+                    {modoEdicion ? (
+                        <input
+                            type="text"
+                            className={styles.inputField}
+                            value={nombreCompleto}
+                            onChange={(e) => setNombreCompleto(e.target.value)}
+                        />
+                    ) : (
+                        <div className={styles.value}>{nombreCompleto}</div>
+                    )}
+                </div>
 
-                                <div className={styles.formButtons}>
-                                    <button onClick={handleSaveClick}>Guardar</button>
-                                    <button onClick={handleCancelEdit}>Cancelar</button>
-                                </div>
-                            </div>
-                        ) : (
-                            <div className={styles.infoDisplay}>
-                                <p><strong>Nombre completo:</strong> {userData.nombreCompleto}</p>
-                                <p><strong>Correo electrónico:</strong> {userData.email}</p>
-                                <p><strong>Número de teléfono:</strong> {userData.numeroTelefono}</p>
-                                <p><strong>Fecha de nacimiento:</strong> {userData.fechaNacimiento}</p>
-                                <button onClick={handleEditClick}>Editar</button>
-                            </div>
-                        )}
-                    </section>
+                <div className={styles.infoItem}>
+                    <label className={styles.label}>Correo electrónico</label>
+                    {modoEdicion ? (
+                        <input
+                            type="email"
+                            className={styles.inputField}
+                            value={correoElectronico}
+                            onChange={(e) => setCorreoElectronico(e.target.value)}
+                        />
+                    ) : (
+                        <div className={styles.value}>
+                            {correoElectronico}
+                            <span className={styles.icon}>✉️</span>
+                        </div>
+                    )}
+                </div>
 
-                    <section className={styles.informacionSalud}>
-                        <h2 className={styles.seccionTitulo}>Información de salud</h2>
-                        {isEditing ? (
-                            <div className={styles.editForm}>
-                                <label>Altura:</label>
-                                <input
-                                    type="text"
-                                    name="altura"
-                                    value={editedData.altura || ''}
-                                    onChange={handleInputChange}
-                                />
+                <div className={styles.infoItem}>
+                    <label className={styles.label}>Número de teléfono</label>
+                    {modoEdicion ? (
+                        <input
+                            type="tel" // Usar 'tel' para números de teléfono
+                            className={styles.inputField}
+                            value={numeroTelefono}
+                            onChange={(e) => setNumeroTelefono(e.target.value)}
+                        />
+                    ) : (
+                        <div className={styles.value}>
+                            {numeroTelefono}
+                            <span className={styles.icon}>📞</span>
+                        </div>
+                    )}
+                </div>
 
-                                <label>Peso:</label>
-                                <input
-                                    type="text"
-                                    name="peso"
-                                    value={editedData.peso || ''}
-                                    onChange={handleInputChange}
-                                />
+                <div className={styles.infoItem}>
+                    <label className={styles.label}>Fecha de nacimiento</label>
+                    {modoEdicion ? (
+                        <input
+                            type="date"
+                            className={styles.inputField}
+                            value={fechaNacimiento}
+                            onChange={(e) => setFechaNacimiento(e.target.value)}
+                        />
+                    ) : (
+                        <div className={styles.value}>
+                            {new Date(fechaNacimiento).toLocaleDateString('es-ES')} {/* Formatear para visualización */}
+                            <span className={styles.icon}>📅</span>
+                        </div>
+                    )}
+                </div>
+            </div>
 
-                                <label>Condiciones médicas:</label>
-                                <textarea
-                                    name="condicionesMedicas"
-                                    value={editedData.condicionesMedicas || ''}
-                                    onChange={handleInputChange}
-                                />
+            <h2 className={styles.title}>Información de salud</h2>
 
-                                <label>Medicamentos actuales:</label>
-                                <textarea
-                                    name="medicamentosActuales"
-                                    value={editedData.medicamentosActuales || ''}
-                                    onChange={handleInputChange}
-                                />
+            <div className={styles.section}>
+                <div className={styles.header}>
+                    <div className={styles.icon}>⚕️</div>
+                    <h3>Detalles médicos</h3>
+                </div>
+                <p className={styles.subtitle}>Esta información nos ayuda a personalizar sus recomendaciones de salud mental.</p>
 
-                                <div className={styles.formButtons}>
-                                    <button onClick={handleSaveClick}>Guardar</button>
-                                    <button onClick={handleCancelEdit}>Cancelar</button>
-                                </div>
-                            </div>
-                        ) : (
-                            <div className={styles.infoDisplay}>
-                                <p><strong>Altura:</strong> {userData.altura}</p>
-                                <p><strong>Peso:</strong> {userData.peso}</p>
-                                <p><strong>Condiciones médicas:</strong> {userData.condicionesMedicas}</p>
-                                <p><strong>Medicamentos actuales:</strong> {userData.medicamentosActuales}</p>
-                                <button onClick={handleEditClick}>Editar</button>
-                            </div>
-                        )}
-                    </section>
+                <div className={styles.infoItem}>
+                    <label className={styles.label}>Altura</label>
+                    {modoEdicion ? (
+                        <input
+                            type="text"
+                            className={styles.inputField}
+                            value={altura}
+                            onChange={(e) => setAltura(e.target.value)}
+                            placeholder={`Ej. 5'6" o 168 cm`}
+                        />
+                    ) : (
+                        <div className={styles.value}>{altura}</div>
+                    )}
+                </div>
 
-                    <button className={styles.logoutButton} onClick={handleLogout}>Cerrar sesión</button>
-                </>
+                <div className={styles.infoItem}>
+                    <label className={styles.label}>Peso</label>
+                    {modoEdicion ? (
+                        <input
+                            type="text"
+                            className={styles.inputField}
+                            value={peso}
+                            onChange={(e) => setPeso(e.target.value)}
+                            placeholder="Ej. 145 lbs o 65 kg"
+                        />
+                    ) : (
+                        <div className={styles.value}>{peso}</div>
+                    )}
+                </div>
+
+                <div className={styles.infoItem}>
+                    <label className={styles.label}>Condiciones médicas</label>
+                    {modoEdicion ? (
+                        <textarea
+                            className={styles.inputField}
+                            value={condicionesMedicas}
+                            onChange={(e) => setCondicionesMedicas(e.target.value)}
+                            rows="2"
+                            placeholder="Ej. Ansiedad, Depresión leve"
+                        ></textarea>
+                    ) : (
+                        <div className={styles.value}>{condicionesMedicas}</div>
+                    )}
+                </div>
+
+                <div className={styles.infoItem}>
+                    <label className={styles.label}>Medicamentos actuales</label>
+                    {modoEdicion ? (
+                        <textarea
+                            className={styles.inputField}
+                            value={medicamentosActuales}
+                            onChange={(e) => setMedicamentosActuales(e.target.value)}
+                            rows="2"
+                            placeholder="Ej. Sertralina 50mg diaria"
+                        ></textarea>
+                    ) : (
+                        <div className={styles.value}>{medicamentosActuales}</div>
+                    )}
+                </div>
+            </div>
+
+            <h2 className={styles.title}>Preferencias de la cuenta</h2>
+
+            <div className={styles.section}>
+                <div className={styles.header}>
+                    <div className={styles.icon}>🔔</div>
+                    <h3>Configuración de notificaciones</h3>
+                </div>
+                <p className={styles.subtitle}>Administra cómo y cuándo recibes notificaciones</p>
+
+                <div className={styles.notificationItem}>
+                    <div className={styles.notificationLabel}>
+                        <span className={styles.notificationIcon}>✉️</span>
+                        <span>Notificaciones por correo electrónico</span>
+                    </div>
+                    <span className={styles.notificationDescription}>Recibe actualizaciones y recordatorios por correo electrónico</span>
+                    <label className={styles.switch}>
+                        <input
+                            type="checkbox"
+                            checked={notificacionesEmail}
+                            onChange={(e) => setNotificacionesEmail(e.target.checked)}
+                            disabled={!modoEdicion} // Deshabilitar si no está en modo edición
+                        />
+                        <span className={styles.slider}></span>
+                    </label>
+                </div>
+
+                <div className={styles.notificationItem}>
+                    <div className={styles.notificationLabel}>
+                        <span className={styles.notificationIcon}>💬</span>
+                        <span>Notificaciones SMS</span>
+                    </div>
+                    <span className={styles.notificationDescription}>Recibe mensajes de texto para alertas importantes</span>
+                    <label className={styles.switch}>
+                        <input
+                            type="checkbox"
+                            checked={notificacionesSms}
+                            onChange={(e) => setNotificacionesSms(e.target.checked)}
+                            disabled={!modoEdicion}
+                        />
+                        <span className={styles.slider}></span>
+                    </label>
+                </div>
+
+                <div className={styles.notificationItem}>
+                    <div className={styles.notificationLabel}>
+                        <span className={styles.notificationIcon}>📱</span>
+                        <span>Notificaciones de la aplicación</span>
+                    </div>
+                    <span className={styles.notificationDescription}>Recibe notificaciones push en tu dispositivo</span>
+                    <label className={styles.switch}>
+                        <input
+                            type="checkbox"
+                            checked={notificacionesApp}
+                            onChange={(e) => setNotificacionesApp(e.target.checked)}
+                            disabled={!modoEdicion}
+                        />
+                        <span className={styles.slider}></span>
+                    </label>
+                </div>
+            </div>
+
+            <div className={styles.section}>
+                <div className={styles.header}>
+                    <div className={styles.icon}>🔒</div>
+                    <h3>Configuración de privacidad</h3>
+                </div>
+                <p className={styles.subtitle}>Controla cómo se utilizan y comparten tus datos</p>
+                <button
+                    className={styles.privacyButton}
+                    onClick={handleAdministrarPrivacidad}
+                    disabled={!modoEdicion} // Deshabilitar si no está en modo edición
+                >
+                    Administrar la privacidad
+                </button>
+            </div>
+
+            {/* Los botones de guardar/cancelar se movieron arriba para mayor consistencia,
+                pero los mantenemos aquí si se prefieren al final */}
+            {modoEdicion && (
+                <div className={styles.actions}>
+                    <button className={styles.saveButton} onClick={handleGuardarCambios}>
+                        Guardar cambios
+                    </button>
+                    <button className={styles.cancelButton} onClick={handleCancelar}>
+                        Cancelar
+                    </button>
+                </div>
+            )}
+
+            {/* Modal de Privacidad (simulado) */}
+            {modalPrivacidadAbierto && (
+                <div className={styles.modalOverlay} onClick={cerrarModalPrivacidad}>
+                    <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+                        <button className={styles.closeButton} onClick={cerrarModalPrivacidad}>×</button>
+                        <h2 className={styles.modalTitle}>Administrar Configuración de Privacidad</h2>
+                        <div className={styles.modalBody}>
+                            <p>Aquí puedes controlar cómo se utilizan y comparten tus datos.</p>
+                            <h4>Opciones de Datos:</h4>
+                            <ul>
+                                <li>Consentimiento para el uso de datos anonimizados para investigación:
+                                    <label className={styles.switch}>
+                                        <input type="checkbox" defaultChecked={true} />
+                                        <span className={styles.slider}></span>
+                                    </label>
+                                </li>
+                                <li>Compartir datos de bienestar con tu médico:
+                                    <label className={styles.switch}>
+                                        <input type="checkbox" defaultChecked={false} />
+                                        <span className={styles.slider}></span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <h4>Eliminar Cuenta:</h4>
+                            <p>Si deseas eliminar tu cuenta y todos tus datos, por favor, contacta a soporte.</p>
+                            <button className={styles.modalButton} onClick={cerrarModalPrivacidad}>Cerrar</button>
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     );
 }
 
 export default PerfilUsuario;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

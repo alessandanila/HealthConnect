@@ -106,7 +106,7 @@ const HistorialAnimo = () => {
     };
 
     const handleVerPerfilClick = () => {
-        navigate('/perfil-usuario');
+        navigate('/perfil');
     };
 
     return (
